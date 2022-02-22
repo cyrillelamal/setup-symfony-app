@@ -1,0 +1,19 @@
+name: 'Setup Symfony Demo Application'
+description: 'Install and cache PHP dependencies'
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        extensions: 'intl, mbstring, pdo_sqlite'
+        php-version: '8.1'
+        tools: 'php-cs-fixer, composer'
+    - name: Cache dependencies
+      uses: actions/cache@v2
+      with:
+        path: vendor
+        key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}
+    - name: Install dependencies
+      run: composer install --no-interaction --no-progress
+      shell: bash
