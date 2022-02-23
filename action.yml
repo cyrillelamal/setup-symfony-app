@@ -1,5 +1,10 @@
 name: 'Setup Symfony Demo Application'
 description: 'Install and cache PHP dependencies'
+inputs:
+  tools:
+    description: 'CSV list of tools to install'
+    required: false
+    default: 'composer'
 runs:
   using: 'composite'
   steps:
@@ -8,7 +13,7 @@ runs:
       with:
         extensions: 'intl, mbstring, pdo_sqlite'
         php-version: '8.1'
-        tools: 'php-cs-fixer, composer'
+        tools: ${{ inputs.tools }}
     - name: Cache dependencies
       uses: actions/cache@v2
       with:
