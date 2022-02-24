@@ -13,7 +13,10 @@ runs:
       with:
         extensions: 'intl, mbstring, pdo_sqlite'
         php-version: '8.1'
-        tools: ${{ inputs.tools }}
+        tools: 'symfony, ${{ inputs.tools }}'
+    - name: Check requirements
+      run: symfony check:requirements
+      shell: bash
     - name: Cache dependencies
       uses: actions/cache@v2
       with:
